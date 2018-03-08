@@ -16,17 +16,44 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="NAME OF THE PHOTO"
+        android:hint="NAME OF THE ITEM"
         android:id="@+id/editText"/>
-    <Button
+    <EditText
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter the type of item"
+        android:id="@+id/editTextType"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter the item Number"
+        android:id="@+id/editTextItemNo"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter the price of the item"
+        android:id="@+id/editTextPrice"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Browse"
-        android:id="@+id/btnBrowse"/>
+        android:id="@+id/btnBrowse"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:id="@+id/btnSave"/>
+        android:id="@+id/btnSave"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        />
+    </LinearLayout>
 </LinearLayout>

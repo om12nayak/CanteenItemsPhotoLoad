@@ -34,13 +34,13 @@ import java.io.IOException;
 
 public class MainActivity extends Activity {
 
-    public static final String STORAGE_PATH="image/";
-    public static final String DATABASE_PATH="image";
+    public static final String STORAGE_PATH="itemsImage/";
+    public static final String DATABASE_PATH="item";
     public static final int REQUEST_CODE=1234;
 
 
     private ImageView imageView;
-    private EditText editText;
+    private EditText editText,editTextType,editTextItemNo,editTextPrice;
     private Button btnSave,btnBrowse;
     private DatabaseReference mDatabaseRef;
     private Uri imgUri;
@@ -57,6 +57,9 @@ public class MainActivity extends Activity {
 
         imageView = findViewById(R.id.imageView);
         editText = findViewById(R.id.editText);
+        editTextType = findViewById(R.id.editTextType);
+        editTextItemNo = findViewById(R.id.editTextItemNo);
+        editTextPrice = findViewById(R.id.editTextPrice);
         btnBrowse = findViewById(R.id.btnBrowse);
         btnSave = findViewById(R.id.btnSave);
         mAuth = FirebaseAuth.getInstance();
@@ -85,16 +88,16 @@ public class MainActivity extends Activity {
                     dialog.setMessage("Process Undergoing");
                     dialog.show();
 
-                    StorageReference ref=storeProfileImage.child(STORAGE_PATH+ System.currentTimeMillis()+"."+getImageExt(imgUri));
+                    StorageReference ref=storeProfileImage.child(STORAGE_PATH+ /*System.currentTimeMillis()*/editText.getText().toString()+"."+getImageExt(imgUri));
                     ref.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                             dialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Image uploaded",Toast.LENGTH_SHORT).show();
-                            ImageUpload imageUpload=new ImageUpload(editText.getText().toString(),taskSnapshot.getDownloadUrl().toString());
+                            ImageUpload imageUpload=new ImageUpload(editText.getText().toString(),taskSnapshot.getDownloadUrl().toString(),editTextPrice.getText().toString(),editTextItemNo.getText().toString());
                             String uploadId=mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(uploadId).setValue(imageUpload);
+                            mDatabaseRef.child(editTextType.getText().toString()).child(editText.getText().toString()).setValue(imageUpload);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
